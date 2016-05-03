@@ -12,4 +12,4 @@ def update(fill_percent):
 
 for x in range(100):
 		update((1.0+x)/100.0);
-		time.sleep(0.05);
+		time.sleep(0.15);

@@ -1,8 +1,11 @@
 body {
 	height: 100%;
 	width : 100%;
-	background-color: #34495e;
+	background-color: #ecf0f1;
 	overflow: hidden;
+	font-family: 'Raleway', sans-serif;
+	font-weight: 300;
+	text-transform: uppercase;
 }
 
 canvas { 
@@ -13,13 +16,13 @@ canvas {
 
 dt {
 	font-size: 1.5em;
-	padding-left: 1.5em;
+	padding-left: 1em;
 	padding-top: 1.25em;
 	padding-bottom: 0.25em;
 }
 
 #another {
-	padding-left: 34%;
+	padding-left: 15%;
 	display: none;
 }
 
@@ -47,6 +50,7 @@ h1 {
 	display: block;
 }
 
+
 #menu-sidebar {
 	height: 90%;
 	width: 25%;
@@ -71,7 +75,7 @@ h1 {
 	width: 30%;
 	padding: 1em;
 	opacity: 2;
-	margin-top: 1em;
+	margin-top: 10em;
 	display: none;
 }
 
@@ -95,5 +99,13 @@ h1 {
 
 #line {
 	width: 100%;
-	padding-top: 9%;
+	padding-top: 22%;
 }
+
+#pour-instruction {
+	font-weight: 300;
+}
+
+h2 { 
+	padding-left: 1em;
+ }

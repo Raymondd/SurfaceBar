@@ -3,12 +3,15 @@
 		<meta charset="UTF-8" />
 		<title>Document</title>
 		<link rel="stylesheet" href="./web_src/style.css">
+		<link href='https://fonts.googleapis.com/css?family=Raleway:400,200,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
 	<dl id="menu-sidebar">
-		<img src="./web_src/surface-bar-logo.svg" alt="surface bar logo, martini glass with toothpick" class="center" id="logo">
+		<dl id="menu-content">
+		<!-- <img src="./web_src/surface-bar-logo.svg" alt="surface bar logo, martini glass with toothpick" class="center" id="logo"> -->
 		<dt id="another">Another Round?</dt>
 		<img src="./web_src/refresh.png" alt="two arrows in counter clockwise circle" class="center" id="refresh" onclick="reload()">
+		</dl>
 	</dl>
 	<div id="container">
 		<h1 id="drink-title"></h1>
@@ -25,6 +28,7 @@
 <script src="./web_src/drinks_api.js"></script>
 <script type="text/javascript" src="./web_src/progressbar.js"></script>
 
+
 	<script type="text/javascript">
 
 	var drink_id = -1;
@@ -36,8 +40,9 @@
 		trailWidth: 1,
 		trailColor: '#EEE',
 		easing: 'easeInOut',
-		from: { color: '#FF512F', width: 1 },
-		to: { color: '#DD2476', width: 10 },
+		duration: 5,
+		from: { color: '#2ecc71', width: 10 },
+		to: { color: '#c0392b', width: 10 },
 		step: function(state, circle) {
 			circle.path.setAttribute('stroke', state.color);
 			circle.path.setAttribute('stroke-width', state.width);
@@ -47,12 +52,12 @@
 	var line = new ProgressBar.Line('line', {
 		strokeWidth: 3,
 	  easing: 'easeInOut',
-	  duration: 1400,
+	  duration: 5,
 	  color: '#FFEA82',
 	  trailColor: '#EEE',
 	  trailWidth: 1,
-	  from: {color: '#FFEA82'},
-	  to: {color: '#ED6A5A'},
+	  from: {color: '#2ecc71'},
+	  to: {color: '#c0392b'},
 	  step: (state, bar) => {
 	    bar.path.setAttribute('stroke', state.color);
 	  }
@@ -152,11 +157,11 @@
 		}
 
 		function drawCircle(percent) {
-			circle.set(percent / 100);
+			circle.animate(percent / 100);
 		}
 
 		function drawLine(percent) {
-			line.set(percent/100);
+			line.animate(percent/100);
 		}
 
 		function drawCheck() {
