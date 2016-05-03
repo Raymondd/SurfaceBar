@@ -1,0 +1,252 @@
+<html>
+<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" href="style.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="./drinks.js"></script> 
+		<script src="./drinks_api.js"></script>
+		<script type="text/javascript" src="progressbar.js"></script>
+
+</head>
+<body>
+	<dl id="menu-sidebar">
+		<img src="surface-bar-logo.svg" alt="surface bar logo, martini glass with toothpick" class="center" id="logo">
+		<dt id="another">Another Round?</dt>
+		<img src="refresh.png" alt="two arrows in counter clockwise circle" class="center" id="refresh" onclick="reload()">
+	</dl>
+	<div id="container">
+		<h1 id="drink-title"></h1>
+		<h1 id="pour-instruction"></h1>
+		<div id="coaster" class="center"></div>
+		<canvas id='check' height="400"></canvas>
+		<h2 id="finish"></h2>
+		<div id="line"></div>
+	</div>
+</body>
+</html>
+
+	<script type="text/javascript">
+
+	var drink_id = -1;
+	var drinks = simple_drinks_db;
+	var finished = false;
+
+	var circle = new ProgressBar.Circle('coaster', {
+		strokeWidth: 10,
+		trailWidth: 1,
+		trailColor: '#EEE',
+		easing: 'easeInOut',
+		from: { color: '#FF512F', width: 1 },
+		to: { color: '#DD2476', width: 10 },
+		step: function(state, circle) {
+			circle.path.setAttribute('stroke', state.color);
+			circle.path.setAttribute('stroke-width', state.width);
+		}
+	});
+
+	var line = new ProgressBar.Line('line', {
+		strokeWidth: 3,
+	  easing: 'easeInOut',
+	  duration: 1400,
+	  color: '#FFEA82',
+	  trailColor: '#EEE',
+	  trailWidth: 1,
+	  from: {color: '#FFEA82'},
+	  to: {color: '#ED6A5A'},
+	  step: (state, bar) => {
+	    bar.path.setAttribute('stroke', state.color);
+	  }
+	});
+
+	$(document).on('click', 'dt', function () {
+		drink_id = this.id.substr(2);
+	});
+
+	$(document).on('click', 'dd', function () {
+		drink_id = this.id.substr(2);
+	});
+
+		window.onload = function(){
+			setupMenu(0);
+			circle.set(0.0);
+		}
+
+		function setupMenu(drink_index) {
+			var menu = document.getElementById('menu-sidebar');
+			var counter = 0;
+			for (drink in drinks) {
+				var drink_entry = document.createElement('dt');
+				drink_entry.setAttribute('id', 'dt' + drinks[drink].id);
+				var ingredients_entry = document.createElement('dd');
+				ingredients_entry.setAttribute('id', 'dd' + drinks[drink].id);
+				var ruler = document.createElement('hr');
+				var drink_name = document.createTextNode(drinks[drink].name);
+				var ingredients = document.createTextNode(drinks[drink].ingredients);
+				drink_entry.appendChild(drink_name);
+				ingredients_entry.appendChild(ingredients);
+				menu.appendChild(drink_entry);
+				menu.appendChild(ingredients_entry);
+				menu.appendChild(ruler);
+				drink_index++;
+			}
+		}
+
+		// read JSON 
+		function read_data() {
+			function processData(data) {
+				var obj = JSON.parse(data); 
+
+				//RIGHT HERE WRITE YOUR CODE
+				var percent_filled = obj.value;
+				if (drink_id == -1 || finished == true){
+					return;
+				}
+				var current_drink = getCurrentDrink();
+				displayCurrentDrink(current_drink);
+				var drink_instructions = stepsForDrink(drink_id);
+				var current_ingredient = getCurrentIngredient(drink_instructions, percent_filled);
+				displayCurrentIngredient(current_ingredient);
+				var percent_ingredient_poured = getPercentIngredientPoured(drink_instructions, percent_filled);
+				drawCircle(percent_ingredient_poured);
+				drawLine(percent_ingredient_poured);
+				if (drinkIsFinished(percent_filled)) {
+					finished = true;
+					pulseCircle();
+					drawCheck();
+					displayGarnish(drink_instructions);
+					getAnotherDrink();
+				}
+			}
+
+			$.ajax({
+				mimeType: 'text/plain; charset=x-user-defined',
+				url:         "fill_level.json",
+				type:        "GET",
+				dataType:    "text",
+				cache:       false,
+				success:     processData
+			});
+		}
+
+		function getCurrentDrink() {
+			return (drinks[drink_id].name);
+		}
+
+		function displayCurrentDrink(drink) {
+			if (drink_id == -1) {
+				return;
+			}
+			$('#drink-title').html(drink);
+		}
+
+		function getCurrentIngredient(instructions, percent) {
+			return (instructions.at(percent).ingredient)
+		}
+
+		function displayCurrentIngredient(ingredient) {
+			$('#pour-instruction').html('Pour ' + ingredient);
+		}
+
+		function getPercentIngredientPoured(instructions, percent_filled) {
+			return (instructions.at(percent_filled).percent_filled);
+		}
+
+		function drawCircle(percent) {
+			circle.set(percent / 100);
+		}
+
+		function drawLine(percent) {
+			line.set(percent/100);
+		}
+
+		function drawCheck() {
+			var start = 100;
+			var mid = 145;
+			var end = 250;
+			var width = 22;
+			var leftX = start;
+			var leftY = start;
+			var rightX = mid + 2;
+			var rightY = mid - 3;
+			var animationSpeed = 5;
+
+			var canvas = document.getElementById('check');
+			var context = canvas.getContext('2d');
+			context.lineWidth = width;
+			context.strokeStyle = '#A5DC86';
+
+			for (i = start; i < mid; i++) {
+			  var drawLeft = window.setTimeout(function () {
+			  	context.beginPath();
+			    context.moveTo(start, start);
+			    context.lineTo(leftX, leftY);
+			    context.lineCap = 'round';
+			    context.stroke();
+			    leftX++;
+			    leftY++;
+			    }, 1 + (i * animationSpeed) / 3);
+			}
+
+			for (i = mid; i < end; i++) {
+			  var drawRight = window.setTimeout(function () {
+			  	context.beginPath();
+			    context.moveTo(leftX + 2, leftY - 3);
+			    context.lineTo(rightX, rightY);
+			    context.stroke();
+			    rightX++;
+			    rightY--;
+			    }, 1 + (i * animationSpeed) / 3);
+			}
+			window.setTimeout(function() {
+				var wdth = canvas.width;
+				var hght = canvas.height;
+				context.clearRect(0,0,wdth, hght);
+			}, 1000 + (250* 5)/ 3)
+			
+		}
+
+		function drinkIsFinished(percent){
+			return (percent >= 1.00);
+		}
+
+		function pulseCircle() {
+			$('#coaster').animate( {
+				height: 550,
+				width: 550,
+				left: 1255,
+				top: 155,
+				opacity: 0,
+				duration: 1000,
+			});
+		}
+
+		function displayGarnish(instructions) {
+			$("#finish").html("");
+			var string = "";
+			for(extra in instructions.extras) {
+				string += " " + instructions.extras[extra];
+			}
+			$('#finish').hide().fadeIn('slow');
+			$('#finish').html('Finish it off with ' + string);
+		}
+
+		function getAnotherDrink() {
+			var myDiv = document.getElementById('menu-sidebar');
+			myDiv.scrollTop = 0;
+			$('hr').css('opacity', '0');
+			$('dt').css('opacity', '0');
+			$('dd').css('opacity', '0');
+			$('#logo').css('display', 'block');
+			$('#another').css('display', 'block');
+			$('#another').css('opacity', '1');
+			$('#refresh').css('display', 'block');
+		}
+
+		function reload() {
+			location.reload();
+		}
+
+		setInterval(read_data, 10);
+
+	</script>

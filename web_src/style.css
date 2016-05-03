@@ -1,0 +1,99 @@
+body {
+	height: 100%;
+	width : 100%;
+	background-color: #34495e;
+	overflow: hidden;
+}
+
+canvas { 
+	position: absolute;
+	left: 55%;
+	top: 41%;
+}
+
+dt {
+	font-size: 1.5em;
+	padding-left: 1.5em;
+	padding-top: 1.25em;
+	padding-bottom: 0.25em;
+}
+
+#another {
+	padding-left: 34%;
+	display: none;
+}
+
+dd {
+	padding-top: 0.25em;
+	padding-bottom: 1.25em;
+	padding-right: 1.5em;
+	font-size: 1.1em;
+	font-style: italic;
+}
+
+hr {
+	color: #bdc3c7;
+}
+
+h1 {
+	padding-left: 1.5em;
+	padding-top: 0.25em;
+	float: left;
+}
+
+.center{
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+#menu-sidebar {
+	height: 90%;
+	width: 25%;
+	color: black;
+	background-color: white;
+	margin-top: 2%;
+	margin-left: 2%;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+	overflow-y: scroll;
+	float: left;
+}
+
+#logo {
+	width: 50%;
+	padding: 1em;
+	opacity: 2;
+	margin-top: 1em;
+	display: none;
+}
+
+#refresh {
+	width: 30%;
+	padding: 1em;
+	opacity: 2;
+	margin-top: 1em;
+	display: none;
+}
+
+#container {
+	height: 90%;
+	width: 68%;
+	float: left;
+	margin-top: 2%;
+	margin-left: 2%;
+	margin-right: 2%;
+	background-color: white;
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+#coaster {
+	width: 30em; 
+	height: 30em; 
+	margin-top: 15%;
+	position: static;
+}
+
+#line {
+	width: 100%;
+	padding-top: 9%;
+}

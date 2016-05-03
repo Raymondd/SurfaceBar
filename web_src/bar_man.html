@@ -1,0 +1,241 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>bar helper</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+    <script src="./drinks.js"></script> 
+    <script src="./drinks_api.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Raleway:200' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <div id="container">
+  <div class="dot"></div>
+  <div class="pulse"></div>
+  <div class="label">COKE 0%</div>
+
+<ul class="accordion">
+  <li>
+    <a href="#content-1" class="tab">Rum and Coke </a>
+    <div id="content-1" class="content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </li>
+  <li>
+    <a href="#content-2" class="tab">Shirly Temple</a>
+    <div id="content-2" class="content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </li>
+  <li>
+    <a href="#content-3" class="tab">Sprite</a>
+    <div id="content-3" class="content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </li>
+  <li>
+    <a href="#content-4" class="tab">AMF</a>
+    <div id="content-4" class="content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </li>
+  <li>
+    <a href="#content-5" class="tab">Long Island Ice Tea</a>
+    <div id="content-5" class="content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+  </li>
+
+</ul>
+
+</div>
+</body>
+<style>
+/*=Typography=*/
+body {
+  font: 16px 'Ubuntu', sans-serif;
+}
+
+/*=Layout=*/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+.accordion {
+  float:left;
+  padding: 0;
+  width: 20em;
+  height: auto;
+  padding-left: 50px;
+  padding-top: 50px;
+  list-style-type: none;
+  position:fixed;
+  z-index: 10;
+}
+
+.tab {
+  display: block;
+  padding: .5em;
+  width: 100%;
+  height: 50px;
+  float:left;
+  background: #34495e;
+  color: #e6e6e6;
+  text-decoration: none;
+  border-bottom: 0.1em solid #3d566e;
+  -moz-transition: background .25s;
+}
+.tab:hover {
+  background: #415b75;
+}
+
+.content {
+  padding: 0 .5em;
+  max-height: 0;
+  background: #272c30;
+  color: #979fa2;
+  overflow: hidden;
+  -moz-transition: max-height .25s;
+}
+
+:target {
+  max-height: 10em;
+}
+
+
+
+
+  #container {
+  overflow:auto;
+}
+
+.pulse {
+  width: 300px;
+  height: 300px;
+  border: 5px solid #34495e;
+  border-radius: 300px;
+  background-color: transparent;
+  z-index: 10;
+  position:fixed;
+  right:206;
+  top:100;
+  -moz-transition: all 1s ease;
+}
+
+.dot {
+  border: 300px solid #27ae60;
+  background: transparent;
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  border-radius: 600px;
+
+  -moz-transition: all 1s ease;
+  position:fixed;
+  right:55;
+  z-index: 1;
+  opacity: 0;
+}
+
+.label{
+  width:450px;
+  height:80px;
+  background-color:#2c3e50;
+
+  position:fixed;
+  right:499;
+  z-index: 100;
+  font-family: "Raleway";
+  font-weight:200;
+  color:white;
+  font-size:400%;
+  padding-left: 20px;
+}
+
+
+
+
+
+</style>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    resizeDiv();
+    setFilled(50,"rum");
+  });
+
+window.onresize = function(event) {
+resizeDiv();
+}
+
+function randomSet(){
+  setFilled(Math.random());
+}
+
+function resizeDiv() {
+vpw = window.innerWidth;
+vph = window.innerHeight;
+$('.pulse').css({'top': vph/2-146 + 'px'});
+$('.label').css({'top': vph/2-35 + 'px'});
+$('.dot').css({'top': vph/2-295 + 'px'});
+}
+
+var drink_id = 2;
+instructions = stepsForDrink(drink_id);
+
+
+function setFilled(percent,ingredient) {
+  color_go = '#27ae60';
+  color_warn = '#f39c12';
+  color_stop = '#c0392b';
+  color_default = color_go; 
+  opacity_go = '0.8';
+  opacity_warn = '0.9';
+  opacity_stop = '1';
+  opacity_default = opacity_go; 
+  $('.label').text(ingredient + " " + percent + "%");
+  $('.pulse').css({'background-color':'transparent'});
+  if(percent < 70) {
+
+  } else if(percent < 90) {
+    color_default = color_warn;
+    opacity_default = opacity_warn;
+  } else {
+    color_default = color_stop;
+    opacity_default = opacity_stop; 
+    $('.pulse').css({'background-color':'#c0392b', "opacity":'0.9'});
+    $('.label').text("pour slowly");
+  }
+  $('.dot').css({
+    '-moz-transform': 'scale(' + percent/100 + ')',
+    'opacity': opacity_default,
+    'border-color': color_default});
+}
+
+
+      // read JSON 
+    function read_data() {
+      function processData(data) {
+        var obj = JSON.parse(data);
+        console.log(obj.value);
+        percent_cup_filled = obj.value;
+        ingredient = instructions.at(percent_cup_filled).ingredient
+        percent = instructions.at(percent_cup_filled).percent_filled
+        setFilled(percent,ingredient);  
+      }
+    
+      $.ajax({
+        mimeType: 'text/plain; charset=x-user-defined',
+        url:         "fill_level.json",
+        type:        "GET",
+        dataType:    "text",
+        cache:       false,
+        success:     processData
+  });
+}
+
+setInterval(read_data, 10);
+
+</script>
+</html>
