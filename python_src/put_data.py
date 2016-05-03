@@ -10,6 +10,6 @@ def update(fill_percent):
 		with io.open('./../web_src/fill_level.json', 'w', encoding='utf-8') as f:
   				f.write(unicode(json.dumps(data, ensure_ascii=False)))
 
-for x in range(100):
-		update((1.0+x)/100.0);
-		time.sleep(0.05);
+#for x in range(100):
+		#update((1.0+x)/100.0);
+		#time.sleep(0.05);
