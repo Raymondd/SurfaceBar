@@ -2,18 +2,13 @@
 <head>
 		<meta charset="UTF-8" />
 		<title>Document</title>
-		<link rel="stylesheet" href="style.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-		<script src="./drinks.js"></script> 
-		<script src="./drinks_api.js"></script>
-		<script type="text/javascript" src="progressbar.js"></script>
-
+		<link rel="stylesheet" href="./web_src/style.css">
 </head>
 <body>
 	<dl id="menu-sidebar">
-		<img src="surface-bar-logo.svg" alt="surface bar logo, martini glass with toothpick" class="center" id="logo">
+		<img src="./web_src/surface-bar-logo.svg" alt="surface bar logo, martini glass with toothpick" class="center" id="logo">
 		<dt id="another">Another Round?</dt>
-		<img src="refresh.png" alt="two arrows in counter clockwise circle" class="center" id="refresh" onclick="reload()">
+		<img src="./web_src/refresh.png" alt="two arrows in counter clockwise circle" class="center" id="refresh" onclick="reload()">
 	</dl>
 	<div id="container">
 		<h1 id="drink-title"></h1>
@@ -25,6 +20,10 @@
 	</div>
 </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="./web_src/drinks.js"></script>
+<script src="./web_src/drinks_api.js"></script>
+<script type="text/javascript" src="./web_src/progressbar.js"></script>
 
 	<script type="text/javascript">
 
@@ -92,10 +91,10 @@
 			}
 		}
 
-		// read JSON 
+		// read JSON
 		function read_data() {
 			function processData(data) {
-				var obj = JSON.parse(data); 
+				var obj = JSON.parse(data);
 
 				//RIGHT HERE WRITE YOUR CODE
 				var percent_filled = obj.value;
@@ -121,7 +120,7 @@
 
 			$.ajax({
 				mimeType: 'text/plain; charset=x-user-defined',
-				url:         "fill_level.json",
+				url:         "./web_src/fill_level.json",
 				type:        "GET",
 				dataType:    "text",
 				cache:       false,
@@ -203,7 +202,7 @@
 				var hght = canvas.height;
 				context.clearRect(0,0,wdth, hght);
 			}, 1000 + (250* 5)/ 3)
-			
+
 		}
 
 		function drinkIsFinished(percent){
