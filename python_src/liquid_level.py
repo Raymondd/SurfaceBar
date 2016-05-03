@@ -1,9 +1,8 @@
 import cv2
 import numpy as np
-import server_example as fb
+import put_data
 
 #vc = cv2.VideoCapture(0)
-
 vc = cv2.VideoCapture('example.mp4')
 
 if vc.isOpened():
@@ -63,8 +62,8 @@ while key != 27 and vc.isOpened():
 
             update_fill = abs(100 - fill/5)/100.0
             #print(update_fill)
-            #if (frame_num % 10) == 0:
-            #    fb.update(update_fill)
+            if (frame_num % 10) == 0:
+                put_data.update(update_fill)
             delta = current
         else:
             delta = raw
