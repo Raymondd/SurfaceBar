@@ -11,10 +11,13 @@ def fill_level(feed, start, update_func):
     v_thresh = 90
     back = None
     min_area = 100
+    TOTAL = start
     fill = start
     window = [fill for i in range(10)]
     update_fill = 0
     frame_num = 0
+
+
 
     while key != 27 and feed.isOpened():
         return_value, frame = feed.read()
@@ -57,7 +60,7 @@ def fill_level(feed, start, update_func):
 
                 cv2.putText(current, str(fill/5), (80,100), cv2.FONT_HERSHEY_SIMPLEX, 1, 255)
 
-                update_fill = abs(100 - fill/5)/100.0
+                update_fill = abs(100 - fill/TOTAL/100.0)/100.0
                 #print(update_fill)
                 if (frame_num % 10) == 0:
                     update_func(update_fill)
