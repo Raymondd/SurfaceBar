@@ -17,10 +17,10 @@ function gen_drink_steps(drink_id){
 	// split "pourable" and "extras"
 	for (var ingredient in all_ingredients) {
 		// if ingredient.text contains "Part"
-		if (~all_ingredients[ingredient].text.indexOf('Part')) {			
+		if (~all_ingredients[ingredient].textPlain.indexOf('Part')) {			
 			//insert into pourables array
 			var pourable_name = all_ingredients[ingredient].id.split('-').join(' ');
-			var pourable_parts = parseInt(all_ingredients[ingredient].text.split(" ")[0]);
+			var pourable_parts = parseInt(all_ingredients[ingredient].textPlain.split(" ")[0]);
 			pourables.push({"name":pourable_name,"parts":pourable_parts})
 		} else {
 			// insert into extras array 

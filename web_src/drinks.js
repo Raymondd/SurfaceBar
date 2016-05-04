@@ -1,4 +1,105 @@
-var drinks_db = [
+var drinks_db = [{
+  "ingredients": [
+        {
+          "type": "mixer",
+          "id": "Sugar",
+          "textPlain": "1 Teaspoon Sugar"
+        },
+         {
+          "type": "mixer",
+          "id": "Bitters",
+          "textPlain": "1 Dash Angostura Bitters "
+        },
+        {
+          "type": "bourbon",
+          "id": "Bourbon",
+          "textPlain": "1 Part Bourbon"
+        }
+       
+      ],
+      "tastes": [
+        {
+          "id": "smokey",
+          "text": "smokey"
+        }
+      ],
+      "occasions": [
+        {
+          "id": "afternoon",
+          "text": "Afternoon Drinks"
+        }
+      ],
+      "id": "old-fashioned",
+      "name": "Old Fashioned",
+      "descriptionPlain": "Fill a mixing glass with ice cubes. Add all ingredients. Stir and strain into a chilled cocktail glass."
+    },{
+  "ingredients": [
+        {
+          "type": "mixer",
+          "id": "Ice Cubes",
+          "textPlain": "Ice Cubes"
+        },
+         {
+          "type": "rum",
+          "id": "rum",
+          "textPlain": "1 Part Rum"
+        },
+        {
+          "type": "mixer",
+          "id": "coke",
+          "textPlain": "3 Part Coke"
+        }
+       
+      ],
+      "tastes": [
+        {
+          "id": "cokey",
+          "text": "cokey"
+        }
+      ],
+      "occasions": [
+        {
+          "id": "afternoon",
+          "text": "Afternoon Drinks"
+        }
+      ],
+      "id": "rum-and-coke",
+      "name": "Rum and Coke",
+      "descriptionPlain": "Fill a mixing glass with ice cubes. Add all ingredients. Stir and strain into a chilled cocktail glass."
+    },{
+      "ingredients": [
+        {
+          "type": "mixer",
+          "id": "apple juice",
+          "textPlain": "2 Part Apple Juice"
+        },
+        {
+          "type": "mixer",
+          "id": "apple cider",
+          "textPlain": "1 Part Apple Cider"
+        },
+        {
+          "type": "grain liqueur",
+          "id": "Everclear",
+          "textPlain": "1 Part Everclear"
+        }
+      ],
+      "tastes": [
+        {
+          "id": "fruity",
+          "text": "Fruity"
+        }
+      ],
+      "occasions": [
+        {
+          "id": "afternoon",
+          "text": "Afternoon Drinks"
+        }
+      ],
+      "id": "apple-pie-punch",
+      "name": "Apple Pie Punch ",
+      "descriptionPlain": "Fill a mixing glass with ice cubes. Add all ingredients. Stir and strain into a chilled cocktail glass."
+    },
     {
       "description": "[Fill|Action|fill] a [mixing glass|Tool|mixing-glass] with [ice cubes|Ingredient|ice-cubes]. [Add|Action|add] all ingredients. [Stir|Action|stir] and [strain|Action|strain] into a chilled [cocktail glass|Glass|cocktail-glass].",
       "story": "",
